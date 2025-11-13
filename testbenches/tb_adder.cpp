@@ -13,11 +13,17 @@ int main(int argc, char **argv, char **env) {
   dut->eval();
   assert(dut->out == 4);
 
-  dut->a = 6;
-  dut->b = 2;
+  dut->a = 1;
+  dut->b = 7;
   dut->modulant = 9;
   dut->eval();
   assert(dut->out == 8);
+
+  dut->a = 6;
+  dut->b = 3;
+  dut->modulant = 9;
+  dut->eval();
+  assert(dut->out == 0);
 
   dut->a = 6;
   dut->b = 3;
