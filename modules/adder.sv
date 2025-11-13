@@ -1,10 +1,12 @@
-module adder(
-  input logic [7:0] a,
-  input logic [7:0] b,
-  output logic [7:0] out
+module adder #(parameter DATA_WIDTH = 8)(
+  input logic [DATA_WIDTH-1:0] a,
+  input logic [DATA_WIDTH-1:0] b,
+  output logic [DATA_WIDTH-1:0] out
 );
 
 assign out = a + b;
 
 
 endmodule;
+
+

@@ -2,10 +2,11 @@ SRC_DIR      := modules
 TB_DIR       := testbenches
 OBJ_DIR      := obj_dir
 
-SRCS         := $(wildcard $(SRC_DIR)/*.sv)
+SRCS         := $(wildcard $(SRC_DIR)/*)
 
 VERILATOR    := verilator
 VERILATOR_OPTS := -Wall --trace --cc
+
 
 MODULES      := adder substractor
 
