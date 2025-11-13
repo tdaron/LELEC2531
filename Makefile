@@ -1,3 +1,7 @@
-run:
-	verilator --binary main.sv -CFLAGS "-std=c++20 -fcoroutines"
-	./obj_dir/Vmain
+setup:
+	verilator -Wall --trace -cc modules/*.sv --exe testbenches/*.cpp
+
+adder:
+	make -C obj_dir -f Vadder.mk Vadder
+	./obj_dir/Vadder
+
