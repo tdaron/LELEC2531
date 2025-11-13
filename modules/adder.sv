@@ -3,15 +3,16 @@
 /* verilator lint_off WIDTHEXPAND */
 
 module adder #(parameter DATA_WIDTH = 8)(
-  input logic signed [DATA_WIDTH-1:0] a,
-  input logic signed [DATA_WIDTH-1:0] b,
+  input logic [DATA_WIDTH-1:0] a,
+  input logic [DATA_WIDTH-1:0] b,
   input logic [DATA_WIDTH-1:0] modulant,
   output logic [DATA_WIDTH-1:0] out
 );
 
 
-logic signed [DATA_WIDTH:0] t_out;
-logic signed [DATA_WIDTH:0] t_sub;
+logic [DATA_WIDTH:0] t_out;
+logic [DATA_WIDTH:0] t_sub;
+
 
 assign t_out = a + b;
 assign t_sub = t_out - modulant;
