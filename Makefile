@@ -1,12 +1,24 @@
-setup:
-	verilator -Wall --trace -cc modules/adder.sv --exe testbenches/tb_adder.cpp
-	verilator -Wall --trace --top-module substractor -cc modules/substractor.sv modules/adder.sv --exe testbenches/tb_substractor.cpp
+SRC_DIR      := modules
+TB_DIR       := testbenches
+OBJ_DIR      := obj_dir
 
-substractor:
-	make -C obj_dir -f Vsubstractor.mk Vsubstractor
-	./obj_dir/Vsubstractor
+SRCS         := $(wildcard $(SRC_DIR)/*.sv)
 
-adder:
-	make -C obj_dir -f Vadder.mk Vadder
-	./obj_dir/Vadder
+VERILATOR    := verilator
+VERILATOR_OPTS := -Wall --trace --cc
 
+MODULES      := adder substractor
+
+all: $(MODULES)
+
+$(MODULES):
+	@echo "=== Building and running $@ ==="
+	$(VERILATOR) $(VERILATOR_OPTS) --top-module $@ -cc $(SRCS) --exe $(TB_DIR)/tb_$@.cpp
+	@$(MAKE) -C $(OBJ_DIR) -f V$@.mk V$@
+	@./$(OBJ_DIR)/V$@
+
+clean:
+	rm -rf $(OBJ_DIR) *.log *.vcd
+
+# Phony targets
+.PHONY: all clean $(MODULES)
