@@ -12,7 +12,7 @@ module exponentiation #(parameter DATA_WIDTH = 8)(
   output logic                  finished
 );
 
-reg [DATA_WIDTH-1:0] exponant;
+reg [DATA_WIDTH-1:0] exponent;
 reg [DATA_WIDTH-1:0] squares, new_squares;
 reg [DATA_WIDTH-1:0] result, new_result;
 
@@ -29,18 +29,18 @@ always_ff@(posedge clock) begin
         squares <= new_squares;
         result <= (exponent[0]) ? new_result : result;
         exponent <= exponent >> 1;
-        end_flag = (exponent == 0) ? 1 : 0;
+        end_flag <= (exponent == 0) ? 1 : 0;
     end
 end
 
-mutiplicator #(parameter DATA_WIDTH = 8) sqr_mult(
+multiplicator #(.DATA_WIDTH(8)) sqr_mult(
   .a(squares),
   .b(squares),
   .modulant(modulant),
   .out(new_squares)
 );
 
-mutiplicator #(parameter DATA_WIDTH = 8) res_mult(
+multiplicator #(.DATA_WIDTH(8)) res_mult(
   .a(result),
   .b(new_squares),
   .modulant(modulant),
