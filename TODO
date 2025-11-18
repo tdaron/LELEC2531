@@ -3,5 +3,5 @@ modules à faire:
 	module modulo
 	module addition 
 	module soustraction
-	module multiplication
+	module multiplication => voir si possible d'opti pour les carrés
 	module puissance
