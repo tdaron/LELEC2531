@@ -2,24 +2,18 @@
 /* verilator lint_off WIDTHTRUNC */
 /* verilator lint_off WIDTHEXPAND */
 
-module adder #(parameter DATA_WIDTH = 8)(
+module mutiplicator #(parameter DATA_WIDTH = 8)(
   input logic [DATA_WIDTH-1:0] a,
   input logic [DATA_WIDTH-1:0] b,
   input logic [DATA_WIDTH-1:0] modulant,
   output logic [DATA_WIDTH-1:0] out
 );
 
-
-logic [DATA_WIDTH:0] t_out;
-logic [DATA_WIDTH:0] t_sub;
-
-
-assign t_out = a + b;
-assign t_sub = t_out - modulant;
-
-assign out = (t_out >= modulant) ? t_sub[DATA_WIDTH-1:0] : t_out[DATA_WIDTH-1:0];
+logic [2*DATA_WIDTH-1:0] intermidiate;
     
+assign intermidiate = a * b;
+
+assign out = intermidiate % modulant;
 
 endmodule;
-
 
