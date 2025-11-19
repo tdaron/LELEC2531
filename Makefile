@@ -8,7 +8,7 @@ VERILATOR    := verilator
 VERILATOR_OPTS := -Wall --trace --cc
 
 
-MODULES      := adder substractor
+MODULES      := adder substractor modulo multiplicator exponentiation
 
 all: $(MODULES)
 
