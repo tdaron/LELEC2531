@@ -22,9 +22,9 @@ class Montgomery:
         return a
 
 if __name__ == "__main__":
-    m = 10
-    x1 = 234
-    x2 = 167
+    m = 167
+    x1 = 420
+    x2 = 999
 
     mont = Montgomery(m)
     
@@ -35,7 +35,7 @@ if __name__ == "__main__":
     
     print(f"r = {mont.r}, r^2 % m = {mont.rrm}")
     print(f"(x1 * x2) % m = ({x1} * {x2}) % {m}")
-    print("Montgomerry : x1 = {r1}, x2 = {r2}")
+    print(f"Montgomerry : x1 = {r1}, x2 = {r2}")
 
     mult = mont.reduce(mont.reduce(r1 * r2))
     print("Montgomerry : x1 * x2 = " + str(mult))
