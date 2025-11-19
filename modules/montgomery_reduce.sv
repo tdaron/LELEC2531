@@ -4,27 +4,26 @@
 
 module mongomery_reduce #(parameter DATA_WIDTH = 8)(
   input logic [2*DATA_WIDTH-1:0] t, //parce que input*rmm
+  input logic [DATA_WIDTH-1:0] R_minus_one, //le nb de bits utilisés du modulant rempli de 1.
   input logic [DATA_WIDTH-1:0] modulant,
+  input logic [DATA_WIDTH-1:0] modulant_inv, // compris entre 1 et R-1 ,les deux compris
   input logic [DATA_WIDTH-1:0] bit_length, //max val = DATA_WIDTH, so necessary is log2(DATA_WIDTH)
-  output logic [2*DATA_WIDTH-1:0] out
+  output logic [DATA_WIDTH-1:0] out //because Montgomery(nb) <= R - 1, in the worst case the number of bits of n
 );
-    
-input logic [2*DATA_WIDTH-1:0] a;
 
-always_comb begin
-	a = t;
+logic [DATA_WIDTH-1:0] a;
+assign a = t[bit_length-1:0];
 
-	for (int i = 0; i < bit_length; i++) begin
-		if(a[0])
-			a = a + modulant;
-		a = a >> 1;
-	end
-	
-	if(a > modulant)
-		a = a - modulant;
-end
+logic [2*DATA_WIDTH-1:0] b;
+assign b = a * n_inv;
 
-assign out = a;
+logic [DATA_WIDTH-1:0] m;
+assign m = b[bit_length-1:0];
+
+logic [DATA_WIDTH-1:0] x;
+assign x = (t + m*modulant) >> bit_length;
+
+assign out = (x < modulant) ? x : x - modulant;
 
 endmodule;
 

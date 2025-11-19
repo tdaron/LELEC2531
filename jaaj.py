@@ -1,43 +1,40 @@
-class Montgomery:
-    BASE = 2
 
-    def __init__(self, m):
-        self.m = m
-        self.n = m.bit_length()
-        self.r = (1 << self.n)
-        self.rrm = (self.r * self.r) % m
+def reduce(T, Rminus1, n, ninv, nbits):
+    m = ((T & Rminus1) * ninv) & Rminus1
+    x = (T + m*n) >> nbits
+    if(x < n):
+        return x
+    return x - n
 
-    def reduce(self, t):
-        a = t
-        for _ in range(self.n):
-            print(a)
-            if (a & 1) == 1:
-                a += self.m
-            a >>= 1
-            
-        print("\n")
-        
-        if a >= self.m:
-            a -= self.m
-        return a
+a = 167
+b = 234
+n = 293
 
-if __name__ == "__main__":
-    m = 167
-    x1 = 420
-    x2 = 999
+R = 1
+buffer_n = n;
+n_bits = 0
 
-    mont = Montgomery(m)
-    
-    t1 = x1 * mont.rrm
-    t2 = x2 * mont.rrm
-    r1 = mont.reduce(t1)
-    r2 = mont.reduce(t2)
-    
-    print(f"r = {mont.r}, r^2 % m = {mont.rrm}")
-    print(f"(x1 * x2) % m = ({x1} * {x2}) % {m}")
-    print(f"Montgomerry : x1 = {r1}, x2 = {r2}")
+while(buffer_n > 0):
+    buffer_n = buffer_n >> 1
+    R = R << 1
+    n_bits += 1
 
-    mult = mont.reduce(mont.reduce(r1 * r2))
-    print("Montgomerry : x1 * x2 = " + str(mult))
-    print("Normal : x1 * x2 = " + str((x1 * x2) % m))
+R_inv = 0
+for i in range(1, n):
+    if((R * i) % n == 1):
+        R_inv = i
+
+if(R_inv == 0):
+    print("Bruh")
+    exit()
+
+n_inv = (R*R_inv -1)//n
+Rsqr = R*R % n
+
+t1 = reduce(Rsqr*a,R-1,n,n_inv,n_bits)
+t2 = reduce(Rsqr*b,R-1,n,n_inv,n_bits)
+c  = reduce(t1*t2, R-1,n,n_inv,n_bits)
+z  = reduce(c, R-1,n,n_inv,n_bits)
+print(z)
+
 
