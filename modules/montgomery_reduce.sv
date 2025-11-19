@@ -6,7 +6,7 @@ module mongomery_reduce #(parameter DATA_WIDTH = 8)(
   input logic [2*DATA_WIDTH-1:0] t, //parce que input*rmm
   input logic [DATA_WIDTH-1:0] modulant,
   input logic [DATA_WIDTH-1:0] bit_length, //max val = DATA_WIDTH, so necessary is log2(DATA_WIDTH)
-  output logic [DATA_WIDTH-1:0] out
+  output logic [2*DATA_WIDTH-1:0] out
 );
     
 input logic [2*DATA_WIDTH-1:0] a;

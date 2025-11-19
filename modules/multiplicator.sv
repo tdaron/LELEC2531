@@ -25,7 +25,7 @@ end
 input logic [2*DATA_WIDTH-1:0] t1 = a * self_rrm;
 input logic [2*DATA_WIDTH-1:0] t2 = b * self_rrm;
 
-input logic [DATA_WIDTH-1:0] r1, r2;
+input logic [2*DATA_WIDTH-1:0] r1, r2;
 
 mongomery_reduce #(DATA_WIDTH = 8) reduce1(
 	.t(a),
@@ -42,7 +42,7 @@ mongomery_reduce #(DATA_WIDTH = 8) reduce2(
 );
 
 input logic [2*DATA_WIDTH-1:0] c;
-assign c = r1 * R2;
+assign c = r1 * r2;
 
 input logic [2*DATA_WIDTH-1:0] z;
 mongomery_reduce #(DATA_WIDTH = 8) reduce3(
