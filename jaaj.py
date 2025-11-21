@@ -9,11 +9,13 @@ class Montgomery:
 
     def reduce(self, t):
         a = t
-        for _ in range(self.n):
+        counter = self.r >> 1;
+        while(counter != 0):
             print(a)
             if (a & 1) == 1:
                 a += self.m
             a >>= 1
+            counter >>= 1
             
         print("\n")
         
@@ -22,7 +24,7 @@ class Montgomery:
         return a
 
 if __name__ == "__main__":
-    m = 10
+    m = 293
     x1 = 234
     x2 = 167
 

@@ -8,7 +8,7 @@ VERILATOR    := verilator
 VERILATOR_OPTS := -Wall --trace --cc
 
 
-MODULES      := adder substractor modulo multiplicator exponentiation
+MODULES      := adder substractor modulo multiplicator exponentiation montgomery_reduce
 
 all: $(MODULES)
 
