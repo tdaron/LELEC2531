@@ -6,6 +6,8 @@ module exponentiation #(parameter DATA_WIDTH = 8)(
   input logic [DATA_WIDTH-1:0] a,
   input logic [DATA_WIDTH-1:0] b,
   input logic [DATA_WIDTH-1:0] modulant,
+  input logic [DATA_WIDTH-1:0] R_div_two,
+  input logic [DATA_WIDTH-1:0] R_squared,
   input logic                  clock,
   input logic                  set,
   output logic [DATA_WIDTH-1:0] out,
@@ -37,6 +39,8 @@ multiplicator #(.DATA_WIDTH(8)) sqr_mult(
   .a(squares),
   .b(squares),
   .modulant(modulant),
+  .R_div_two(R_div_two),
+  .R_squared(R_squared),
   .out(new_squares)
 );
 
@@ -44,6 +48,8 @@ multiplicator #(.DATA_WIDTH(8)) res_mult(
   .a(result),
   .b(new_squares),
   .modulant(modulant),
+  .R_div_two(R_div_two),
+  .R_squared(R_squared),
   .out(new_result)
 );
 
