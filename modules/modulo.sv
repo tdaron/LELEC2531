@@ -6,7 +6,7 @@
 
 
 module modulo #(parameter DATA_WIDTH = 8)(
-  input logic [DATA_WIDTH-1:0]  a,
+  input logic [2*DATA_WIDTH:0]  a,
   input logic [DATA_WIDTH-1:0]  modulant,
   input logic 				    clk,
   input logic				    start,
