@@ -6,16 +6,47 @@
 
 int main(int argc, char **argv, char **env) {
   Vmodulo *dut = new Vmodulo;
-
-  dut->a = 6;
-  dut->modulant = 9;
+  
+  dut->clk = 0;
   dut->eval();
-  assert(dut->out == 6);
-
-  dut->a = 16;
-  dut->modulant = 9;
+  
+  dut->clk = 1;
+  dut->a = 63;
+  dut->modulant = 7;
+  dut->start = 1;
   dut->eval();
-  assert(dut->out == 7);
+  dut->clk = 0;
+  dut->start = 0;
+  dut->eval();
+  while(!dut->done)
+  {	
+  	dut->clk = 1;
+  	dut->eval();
+  	printf("%d\n",dut->out);
+  	dut->clk = 0;
+  	dut->eval();
+  }
+  printf("\n");
+  
+  dut->clk = 1;
+  dut->a = 63;
+  dut->modulant = 8;
+  dut->start = 1;
+  dut->eval();
+  dut->clk = 0;
+  dut->start = 0;
+  dut->eval();
+  while(!dut->done)
+  {	
+  	dut->clk = 1;
+  	dut->eval();
+  	printf("%d\n",dut->out);
+  	dut->clk = 0;
+  	dut->eval();
+  }
+  printf("\n");
+  
+  
 
   std::cout << "Modulo Test : done\n";
   delete dut;
