@@ -7,7 +7,7 @@ module R_computation #(parameter DATA_WIDTH = 8)(
   input logic [DATA_WIDTH-1:0]  modulant,
   input logic					start,
   input logic					clk,
-  output logic [DATA_WIDTH-1:0] R_out,
+  output logic [DATA_WIDTH:0] R_out,
   output logic 					done
 );
 
