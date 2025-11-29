@@ -7,11 +7,11 @@
 int main(int argc, char **argv, char **env) {
   Vmultiplicator *dut = new Vmultiplicator;
 
-  dut->a = 185;
-  dut->b = 209;
-  dut->modulant = 213;
-  dut->R_div_two = 128;
-  dut->R_squared = 145;
+  dut->a = 17;
+  dut->b = 100;
+  dut->modulant = 117;
+  dut->R_div_two = 64;
+  dut->R_squared = 4;
  
   dut->eval();
   
