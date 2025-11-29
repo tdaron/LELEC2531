@@ -21,12 +21,13 @@ int main(int argc, char **argv, char **env) {
   {	
   	dut->clk = 1;
   	dut->eval();
-  	printf("%d\n",dut->R_out);
+  	printf("%d %d %d\n",dut->R_div_2, dut->R_square, dut->md_done);
   	dut->clk = 0;
   	dut->eval();
   }
   printf("Test Done\n\n");
   
+    
   dut->clk = 1;
   dut->modulant = 53;
   dut->start = 1;
@@ -38,7 +39,7 @@ int main(int argc, char **argv, char **env) {
   {	
   	dut->clk = 1;
   	dut->eval();
-  	printf("%d\n",dut->R_out);
+  	printf("%d %d %d\n",dut->R_div_2, dut->R_square, dut->md_done);
   	dut->clk = 0;
   	dut->eval();
   }

@@ -14,7 +14,7 @@ module modulo #(parameter DATA_WIDTH = 8)(
   output logic					done
 );
 
-typedef enum logic [2:0] {IDLE=3'b000, ALIGN=3'b001, SUBSTRACT=3'b010, SUBSTRACT_TWO=3'b011, FINISH=3'b100} statetype;
+typedef enum logic [1:0] {IDLE=2'b00, ALIGN=2'b01, SUBSTRACT=2'b10} statetype;
 
 statetype state;
 statetype nextstate;
@@ -23,10 +23,10 @@ logic finish;
 logic next_finish;
 logic [7:0] shift;
 logic [7:0] next_shift;
-logic [DATA_WIDTH-1:0] dividend;
-logic [DATA_WIDTH-1:0] next_dividend;
-logic [DATA_WIDTH-1:0] divisor;
-logic [DATA_WIDTH-1:0] next_divisor;
+logic [2*DATA_WIDTH:0] dividend;
+logic [2*DATA_WIDTH:0] next_dividend;
+logic [2*DATA_WIDTH:0] divisor;
+logic [2*DATA_WIDTH:0] next_divisor;
 
 always_ff @(posedge clk) begin
 	if(start) begin
@@ -55,14 +55,11 @@ always_comb begin
 			next_finish = finish;
 			if(finish == 0)
 				nextstate = ALIGN;
-			else
-				nextstate = IDLE;
 		end
 		ALIGN: begin
-			if((divisor <= dividend)&&(~divisor[DATA_WIDTH-1])&&(shift < DATA_WIDTH)) begin
+			if(divisor <= dividend) begin
 				next_divisor = divisor << 1;
 				next_shift = shift + 1;
-				nextstate = ALIGN;
 			end
 			else
 				nextstate = SUBSTRACT;
@@ -72,17 +69,10 @@ always_comb begin
 				next_dividend = dividend - divisor;
 			next_divisor = divisor >> 1;
 			next_shift = shift - 1;
-			nextstate = SUBSTRACT_TWO;
-		end
-		SUBSTRACT_TWO : begin
-			if((dividend < divisor)||(shift == 0)||(shift >= DATA_WIDTH))
-				nextstate = FINISH;
-			else
-				nextstate = SUBSTRACT;
-		end
-		FINISH: begin
-			next_finish = 1;
-			nextstate = IDLE;
+			if(shift == 1) begin
+				next_finish = 1;
+				nextstate = IDLE;
+			end
 		end
 		default : nextstate = IDLE;
 	endcase

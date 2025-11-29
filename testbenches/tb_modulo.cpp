@@ -11,8 +11,8 @@ int main(int argc, char **argv, char **env) {
   dut->eval();
   
   dut->clk = 1;
-  dut->a = 63;
-  dut->modulant = 7;
+  dut->a = 16384;
+  dut->modulant = 116;
   dut->start = 1;
   dut->eval();
   dut->clk = 0;
@@ -46,7 +46,23 @@ int main(int argc, char **argv, char **env) {
   }
   printf("\n");
   
-  
+  dut->clk = 1;
+  dut->a = 65536;
+  dut->modulant = 247;
+  dut->start = 1;
+  dut->eval();
+  dut->clk = 0;
+  dut->start = 0;
+  dut->eval();
+  while(!dut->done)
+  {	
+  	dut->clk = 1;
+  	dut->eval();
+  	printf("%d\n",dut->out);
+  	dut->clk = 0;
+  	dut->eval();
+  }
+  printf("\n");
 
   std::cout << "Modulo Test : done\n";
   delete dut;
