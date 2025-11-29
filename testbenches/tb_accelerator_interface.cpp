@@ -66,7 +66,6 @@ int main(int argc, char **argv, char **env) {
   {
     dut->clk = 1;
   	dut->eval();
-  	printf("%d %d %d\n",dut->R_2, dut->R_sqr, dut->r_fin);
   	dut->clk = 0;
   	dut->eval();
   }

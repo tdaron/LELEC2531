@@ -20,10 +20,7 @@ module accelerator_interface #(parameter DATA_WIDTH = 8)(
   input logic  [2:0]			control,
   input logic					clk,
   output logic [DATA_WIDTH-1:0] result,
-  output logic [DATA_WIDTH-1:0] R_2,
-  output logic [DATA_WIDTH-1:0] R_sqr,
-  output logic					finished,
-  output logic 					r_fin
+  output logic					finished
 );
 
 logic [DATA_WIDTH-1:0] R_div_two;
@@ -137,9 +134,5 @@ exponentiation #(.DATA_WIDTH(8)) exp(
 
 assign result = intermidiate_result;
 assign finished = intermidiate_finished;
-
-assign R_2 = R_div_two;
-assign R_sqr = R_squared;
-assign r_fin = r_setup_done;
 
 endmodule;
