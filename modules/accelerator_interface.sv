@@ -92,14 +92,14 @@ substractor #(.DATA_WIDTH(DATA_WIDTH)) sub(
   .out(Res_sub)
 );
 
-/*R_computation #(.DATA_WIDTH(8)) R_setup(
+R_computation #(.DATA_WIDTH(8)) R_setup(
   .modulant(modulant),
   .start(start),
   .clk(clk),
   .R_div_2(R_div_two_intermidiate),
   .R_square(R_squared_intermidiate),
   .done(r_setup_done)
-);*/
+);
 
 modulo #(.DATA_WIDTH(DATA_WIDTH)) mod(
   .a({1'b0, a, b}),
