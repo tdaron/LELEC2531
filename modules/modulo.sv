@@ -81,6 +81,6 @@ end
 assign done = finish;
 assign out = dividend >= modulant ? dividend - modulant : dividend;
 
-endmodule;
+endmodule
 
 

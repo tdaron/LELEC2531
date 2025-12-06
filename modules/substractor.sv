@@ -19,5 +19,5 @@ assign t_sub = t_out + modulant;
 assign out = t_out[DATA_WIDTH] ? t_sub[DATA_WIDTH-1:0] : t_out[DATA_WIDTH-1:0];
     
 
-endmodule;
+endmodule
 

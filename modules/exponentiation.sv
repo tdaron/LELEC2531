@@ -56,4 +56,4 @@ multiplicator #(.DATA_WIDTH(8)) res_mult(
 assign out = result;
 assign finished = end_flag;
 
-endmodule;
+endmodule

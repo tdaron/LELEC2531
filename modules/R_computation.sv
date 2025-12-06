@@ -85,4 +85,4 @@ modulo #(.DATA_WIDTH(8)) mod(
 assign R_div_2 = R >> 1;
 assign done = finish; 
 
-endmodule;
+endmodule

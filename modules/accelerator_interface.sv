@@ -78,7 +78,7 @@ always_latch begin
 	endcase
 end
 
-adder #(.DATA_WIDTH(8)) add(
+mod_adder #(.DATA_WIDTH(8)) add(
   .a(a),
   .b(b),
   .modulant(modulant),
@@ -135,4 +135,4 @@ exponentiation #(.DATA_WIDTH(8)) exp(
 assign result = intermidiate_result;
 assign finished = intermidiate_finished;
 
-endmodule;
+endmodule

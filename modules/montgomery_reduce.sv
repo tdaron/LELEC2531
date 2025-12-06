@@ -18,7 +18,7 @@ logic [DATA_WIDTH-1:0] cond;
 
 genvar i;
 generate
-	for(i = 0; i < DATA_WIDTH; i++) begin
+	for(i = 0; i < DATA_WIDTH; i++) begin: gen_loop
 		assign cond[i] = (counter[i] != 0);
 		assign b[i] = (a[i][0] & cond[i]) ? a[i] + modulant : a[i];
 		assign a[i+1] = cond[i] ? b[i] >> 1 : b[i];

@@ -43,5 +43,5 @@ montgomery_reduce #(.DATA_WIDTH(DATA_WIDTH)) r_final(
   .out(out)
 );
 
-endmodule;
+endmodule
 
