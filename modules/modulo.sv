@@ -46,36 +46,43 @@ always_ff @(posedge clk) begin
 end
 
 always_comb begin
+    // valeurs par défaut
+    nextstate     = state;
+    next_shift    = shift;
+    next_dividend = dividend;
+    next_divisor  = divisor;
+    next_finish   = finish;
 
-	case(state)
-		IDLE: begin
-			next_shift = shift;
-			next_dividend = dividend;
-			next_divisor = divisor;
-			next_finish = finish;
-			if(finish == 0)
-				nextstate = ALIGN;
-		end
-		ALIGN: begin
-			if(divisor <= dividend) begin
-				next_divisor = divisor << 1;
-				next_shift = shift + 1;
-			end
-			else
-				nextstate = SUBSTRACT;
-		end
-		SUBSTRACT: begin
-			if(dividend >= divisor)
-				next_dividend = dividend - divisor;
-			next_divisor = divisor >> 1;
-			next_shift = shift - 1;
-			if(shift == 1) begin
-				next_finish = 1;
-				nextstate = IDLE;
-			end
-		end
-		default : nextstate = IDLE;
-	endcase
+    case(state)
+
+        IDLE: begin
+            if (finish == 0)
+                nextstate = ALIGN;
+        end
+
+        ALIGN: begin
+            if (divisor <= dividend) begin
+                next_divisor = divisor << 1;
+                next_shift   = shift + 1;
+            end else begin
+                nextstate = SUBSTRACT;
+            end
+        end
+
+        SUBSTRACT: begin
+            if (dividend >= divisor)
+                next_dividend = dividend - divisor;
+
+            next_divisor = divisor >> 1;
+            next_shift   = shift - 1;
+
+            if (shift == 1) begin
+                next_finish = 1;
+                nextstate   = IDLE;
+            end
+        end
+
+    endcase
 end
 
 assign done = finish;

@@ -41,39 +41,45 @@ always_ff @(posedge clk) begin
 end
 
 always_comb begin
-	case(state)
-		IDLE : begin
-			next_R = R;
-			next_finish = finish;
-			next_mod_start = mod_start;
-			if(finish == 0)
-				nextstate = COMPUTING_R;
-			else
-				nextstate = IDLE;
-		end
-		COMPUTING_R : begin
-			if(R <= modulant) begin
-				next_R = R << 1;
-				nextstate = COMPUTING_R;
-			end
-			else begin
-				next_mod_start = 1;
-				nextstate = COMPUTING_R_2;
-			end
-		end
-		COMPUTING_R_2 : begin
-			if(mod_start == 1)
-				next_mod_start = 0;
-			else if (mod_done) begin
-				next_finish = 1;
-				nextstate = IDLE;
-			end
-		end
-		default : nextstate = IDLE;
-	endcase
+    // valeurs par défaut
+    nextstate      = state;
+    next_R         = R;
+    next_finish    = finish;
+    next_mod_start = mod_start;
+
+    case(state)
+        IDLE: begin
+            if(finish == 0)
+                nextstate = COMPUTING_R;
+            else
+                nextstate = IDLE;
+        end
+
+        COMPUTING_R: begin
+            if(R <= modulant) begin
+                next_R     = R << 1;
+                nextstate  = COMPUTING_R;
+            end else begin
+                next_mod_start = 1;
+                nextstate      = COMPUTING_R_2;
+            end
+        end
+
+        COMPUTING_R_2: begin
+            if(mod_start == 1)
+                next_mod_start = 0;
+            else if (mod_done) begin
+                next_finish = 1;
+                nextstate   = IDLE;
+            end
+        end
+
+        default: nextstate = IDLE;
+    endcase
 end
 
-modulo #(.DATA_WIDTH(8)) mod(
+
+modulo #(.DATA_WIDTH(DATA_WIDTH)) mod(
   .a(R*R),
   .modulant(modulant),
   .clk(clk),

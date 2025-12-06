@@ -35,7 +35,7 @@ always_ff@(posedge clock) begin
     end
 end
 
-multiplicator #(.DATA_WIDTH(8)) sqr_mult(
+multiplicator #(.DATA_WIDTH(DATA_WIDTH)) sqr_mult(
   .a(squares),
   .b(squares),
   .modulant(modulant),
@@ -44,7 +44,7 @@ multiplicator #(.DATA_WIDTH(8)) sqr_mult(
   .out(new_squares)
 );
 
-multiplicator #(.DATA_WIDTH(8)) res_mult(
+multiplicator #(.DATA_WIDTH(DATA_WIDTH)) res_mult(
   .a(result),
   .b(new_squares),
   .modulant(modulant),

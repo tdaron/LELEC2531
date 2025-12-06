@@ -78,30 +78,30 @@ always_latch begin
 	endcase
 end
 
-mod_adder #(.DATA_WIDTH(8)) add(
+mod_adder #(.DATA_WIDTH(DATA_WIDTH)) add(
   .a(a),
   .b(b),
   .modulant(modulant),
   .out(Res_add)
 );
 
-substractor #(.DATA_WIDTH(8)) sub(
+substractor #(.DATA_WIDTH(DATA_WIDTH)) sub(
   .a(a),
   .b(b),
   .modulant(modulant),
   .out(Res_sub)
 );
 
-R_computation #(.DATA_WIDTH(8)) R_setup(
+/*R_computation #(.DATA_WIDTH(8)) R_setup(
   .modulant(modulant),
   .start(start),
   .clk(clk),
   .R_div_2(R_div_two_intermidiate),
   .R_square(R_squared_intermidiate),
   .done(r_setup_done)
-);
+);*/
 
-modulo #(.DATA_WIDTH(8)) mod(
+modulo #(.DATA_WIDTH(DATA_WIDTH)) mod(
   .a({1'b0, a, b}),
   .modulant(modulant),
   .clk(clk),
@@ -110,7 +110,7 @@ modulo #(.DATA_WIDTH(8)) mod(
   .done(mod_done)
 );
 
-multiplicator #(.DATA_WIDTH(8)) mult(
+multiplicator #(.DATA_WIDTH(DATA_WIDTH)) mult(
   .a(a),
   .b(b),
   .modulant(modulant),
@@ -119,7 +119,7 @@ multiplicator #(.DATA_WIDTH(8)) mult(
   .out(Res_mult)
 );
 
-exponentiation #(.DATA_WIDTH(8)) exp(
+exponentiation #(.DATA_WIDTH(DATA_WIDTH)) exp(
   .a(a),
   .b(b),
   .modulant(modulant),
